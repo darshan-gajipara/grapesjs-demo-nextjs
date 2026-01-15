@@ -144,6 +144,66 @@ export default function GrapesEditor() {
       },
     });
 
+    editor.on("load", () => {
+      editor.setComponents(`
+    <div>
+      <!-- NAVBAR -->
+      <nav style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:20px;
+        background:#111;
+        color:#fff">
+        <strong>MySite</strong>
+        <div style="display:flex;gap:16px">
+          <a style="color:#fff">Home</a>
+          <a style="color:#fff">Services</a>
+          <a style="color:#fff">About</a>
+          <a style="color:#fff">Contact</a>
+        </div>
+      </nav>
+
+      <!-- HERO -->
+      <section style="
+        padding:100px 20px;
+        text-align:center;
+        background:linear-gradient(135deg,#667eea,#764ba2);
+        color:white">
+        <h1 style="font-size:clamp(36px,5vw,60px);font-weight:700">
+          Build Your Website Faster
+        </h1>
+        <p style="
+          max-width:650px;
+          margin:24px auto;
+          font-size:18px;
+          opacity:.9">
+          Design stunning, responsive websites visually with GrapesJS.
+        </p>
+        <button style="
+          margin-top:24px;
+          padding:14px 32px;
+          background:#f472b6;
+          border:none;
+          border-radius:999px;
+          color:white;
+          font-size:16px">
+          Get Started
+        </button>
+      </section>
+
+      <!-- FOOTER -->
+      <footer style="
+        padding:40px;
+        text-align:center;
+        background:#111;
+        color:white">
+        © 2026 MySite. All rights reserved.
+      </footer>
+    </div>
+  `);
+    });
+
     // ✅ DEVICE COMMANDS (CRITICAL)
     editor.Commands.add("set-device-desktop", {
       run: (ed) => ed.setDevice("Desktop"),
@@ -158,21 +218,31 @@ export default function GrapesEditor() {
     // ✅ EXPORT WEBSITE
     editor.Commands.add("export-website", {
       run(ed) {
-        const html = ed.getHtml();
-        const css = ed.getCss();
 
-        const fullHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<style>${css}</style>
-</head>
-<body>${html}</body>
-</html>`;
+        const isConfirmed = confirm(
+          "Export website and save to localStorage?"
+        );
 
-        localStorage.setItem("grapesjs-site", fullHtml);
-        alert("Website exported!");
+        if (isConfirmed) {
+          const html = ed.getHtml();
+          const css = ed.getCss();
+
+          const fullHtml = `
+          <!DOCTYPE html>
+          <html>
+          <head>
+          <meta charset="utf-8" />
+          <style>${css}</style>
+          </head>
+          <body>${html}</body>
+          </html>`;
+
+          localStorage.setItem("grapesjs-site", fullHtml);
+          alert("Website exported!");
+        } else {
+          return;
+        };
+
       },
     });
 
@@ -486,7 +556,7 @@ background:linear-gradient(135deg,#667eea,#764ba2);color:white">
 
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <div id="blocks" style={{ width: 180 }} />
-        <div id="gjs" style={{ flex: 1,  minHeight: "100vh" }} />
+        <div id="gjs" style={{ flex: 1, minHeight: "100vh" }} />
         <div style={{ width: 200 }}>
           <div id="styles" />
           <div id="traits" />
