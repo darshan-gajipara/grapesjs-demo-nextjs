@@ -145,7 +145,10 @@ export default function GrapesEditor() {
     });
 
     editor.on("load", () => {
-      editor.setComponents(`
+      const saved = localStorage.getItem("grapesjs-site");
+      if (saved) { editor.setComponents(saved); }
+      else {
+        editor.setComponents(`
     <div>
       <!-- NAVBAR -->
       <nav style="
@@ -155,12 +158,14 @@ export default function GrapesEditor() {
         padding:20px;
         background:#111;
         color:#fff">
-        <strong>MySite</strong>
+        <strong>
+          <a href="#home" style="color:#fff;text-decoration:none">MySite</a>
+        </strong>
         <div style="display:flex;gap:16px">
-          <a style="color:#fff">Home</a>
-          <a style="color:#fff">Services</a>
-          <a style="color:#fff">About</a>
-          <a style="color:#fff">Contact</a>
+         <a href="#home" style="color:#fff">Home</a>
+         <a href="#services" style="color:#fff">Services</a>
+         <a href="#about" style="color:#fff">About</a>
+         <a href="#contact" style="color:#fff">Contact</a>
         </div>
       </nav>
 
@@ -169,7 +174,7 @@ export default function GrapesEditor() {
         padding:100px 20px;
         text-align:center;
         background:linear-gradient(135deg,#667eea,#764ba2);
-        color:white">
+        color:white" id="home">
         <h1 style="font-size:clamp(36px,5vw,60px);font-weight:700">
           Build Your Website Faster
         </h1>
@@ -201,7 +206,9 @@ export default function GrapesEditor() {
         © 2026 MySite. All rights reserved.
       </footer>
     </div>
-  `);
+        `);
+      }
+
     });
 
     // ✅ DEVICE COMMANDS (CRITICAL)
@@ -278,7 +285,7 @@ export default function GrapesEditor() {
       category: "Sections",
       content: `
 <section style="padding:90px 20px;text-align:center;
-background:linear-gradient(135deg,#667eea,#764ba2);color:white">
+background:linear-gradient(135deg,#667eea,#764ba2);color:white"  id="home">
   <h1 style="font-size:clamp(32px,5vw,56px);font-weight:700">
     Build Your Website Faster
   </h1>
@@ -344,7 +351,7 @@ background:linear-gradient(135deg,#667eea,#764ba2);color:white">
       content: `
 <section style="
   padding:80px 20px;
-  background:linear-gradient(135deg,#eef2ff,#fdf2f8)">
+  background:linear-gradient(135deg,#eef2ff,#fdf2f8)" id="about">
   <div style="
     max-width:1200px;
     margin:auto;
@@ -374,7 +381,7 @@ background:linear-gradient(135deg,#667eea,#764ba2);color:white">
       label: "Services",
       category: "Sections",
       content: `
-<section style="padding:80px 20px;background:#fff">
+<section style="padding:80px 20px;background:#fff" id="services">
   <h2 style="text-align:center">Our Services</h2>
   <div style="
     max-width:1200px;
@@ -498,7 +505,7 @@ background:linear-gradient(135deg,#667eea,#764ba2);color:white">
       label: "Contact Section",
       category: "Sections",
       content: `
-<section style="padding:60px 20px">
+<section style="padding:60px 20px" id="contact">
   <h2 style="text-align:center">Contact Us</h2>
   <form style="max-width:600px;margin:40px auto;display:flex;flex-direction:column;gap:12px">
     <input placeholder="Name" style="padding:12px"/>

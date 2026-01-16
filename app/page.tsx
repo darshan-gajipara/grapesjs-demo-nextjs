@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen bg-muted">
       {/* Sidebar */}
-      <aside className="w-64 bg-background border-r p-6 flex flex-col gap-6">
+      <aside className="w-44 bg-background border-r p-6 flex flex-col gap-6">
         <h2 className="text-xl font-semibold">Page Builder</h2>
 
         <Separator />
